@@ -1,6 +1,5 @@
 package nav
 
-import GreetingScreenComponent
 import androidx.compose.runtime.Composable
 import com.arkivanov.decompose.ComponentContext
 import com.arkivanov.decompose.extensions.compose.jetbrains.Children
@@ -9,7 +8,7 @@ import com.arkivanov.decompose.router.push
 import com.arkivanov.decompose.router.replaceCurrent
 import com.arkivanov.decompose.router.router
 import com.arkivanov.essenty.parcelable.Parcelable
-import screen.AuthScreenComponent
+import screen.AuthScreenViewModelComponent
 import screen.MenuScreenComponent
 import util.Component
 
@@ -29,7 +28,7 @@ class NavHostComponent(
     ): Component {
         return when (screenConfig) {
 
-            is ScreenConfig.Auth -> AuthScreenComponent(
+            is ScreenConfig.Auth -> AuthScreenViewModelComponent(
                 componentContext,
                 ::onAuthenticated,
             )
@@ -40,7 +39,7 @@ class NavHostComponent(
             )
             else -> {
                 //todo
-                AuthScreenComponent(
+                AuthScreenViewModelComponent(
                 componentContext,
                 ::onAuthenticated,
                 )
@@ -58,7 +57,7 @@ class NavHostComponent(
     }
 
 
-    private fun pop() {
+    private fun onBackPresses() {
         router.pop()
     }
 

@@ -14,8 +14,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import com.arkivanov.decompose.ComponentContext
 import nav.NavHostComponent
-import util.Component
-import util.convertToScreenConfig
+import util.*
 
 
 class MenuScreenComponent(
@@ -25,27 +24,27 @@ class MenuScreenComponent(
 ) : Component, ComponentContext by componentContext {
     @Composable
     override fun render() {
-        menuScreen(listOf("Add", "All", "Delete","Generate"), navigate)
+        menuScreen(listOf("Add", "All", "Delete", "Generate"), navigate)
     }
 }
+
 @Composable
 @Preview
 fun menuScreen(menuItems: List<String>, navigate: (screen: NavHostComponent.ScreenConfig) -> Unit) {
     Column(
         modifier = Modifier
             .fillMaxHeight()
-            .fillMaxWidth().background(Color.Black),
+            .fillMaxWidth().background(BlackColor),
         horizontalAlignment = CenterHorizontally,
     ) {
         Spacer(modifier = Modifier.fillMaxHeight(0.05f))
-
         Text(
             text = "What you wanna do?",
             style = MaterialTheme.typography.h3,
-            color = Color.White
+            color = WhiteColor
         )
         Spacer(modifier = Modifier.fillMaxHeight(0.05f))
-        BoxWithConstraints() {
+        BoxWithConstraints {
             LazyColumn(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -76,9 +75,9 @@ fun menuItem(
         modifier = Modifier.fillMaxWidth(0.7f),
         onClick = { onClicked.invoke(title) },
         shape = RoundedCornerShape(16.dp),
-        colors = ButtonDefaults.buttonColors(backgroundColor = Color(0xFF6FCF97))
+        colors = ButtonDefaults.buttonColors(backgroundColor = PrimaryColor)
     ) {
-        Text(text = title,  style = MaterialTheme.typography.body2,modifier = Modifier.padding(all = 8.dp))
+        Text(text = title, style = MaterialTheme.typography.body2, modifier = Modifier.padding(all = 8.dp))
     }
 
 

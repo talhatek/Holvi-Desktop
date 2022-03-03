@@ -1,5 +1,6 @@
 package util
 
+import androidx.compose.ui.graphics.Color
 import com.charleskorn.kaml.Yaml
 import kotlinx.serialization.serializer
 import nav.NavHostComponent
@@ -26,7 +27,6 @@ fun String.decrypt(key: String): String {
 }
 
 fun String.convertToScreenConfig():NavHostComponent.ScreenConfig{
-
   return  when(this){
         "Add" ->  NavHostComponent.ScreenConfig.Add
         "All" ->  NavHostComponent.ScreenConfig.All
@@ -35,3 +35,8 @@ fun String.convertToScreenConfig():NavHostComponent.ScreenConfig{
         else ->  throw Exception("Unknown screen config")
   }
 }
+
+val PrimaryColor = Color(0xFF6FCF97)
+val WhiteColor = Color.White
+val BlackColor = Color.Black
+val TransparentColor = Color.Transparent
