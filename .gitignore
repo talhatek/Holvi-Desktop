@@ -1,0 +1,6 @@
+/build
+.gradle
+.idea
+/app/resources/keep_safe.yaml
+gradlew
+gradlew.bat
