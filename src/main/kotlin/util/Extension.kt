@@ -50,3 +50,5 @@ val SecondaryColor = Color(0xFF6FCF97)
 val WhiteColor = Color.White
 val BlackColor = Color.Black
 val TransparentColor = Color.Transparent
+val SecondPrimaryDark = Color(0xFF2F2A34)
+val ScaffoldBackGround = Color(0xFF25202B)

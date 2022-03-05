@@ -61,7 +61,7 @@ fun AddScreen(viewModel: AddViewModel, onBackPress: () -> Unit) {
         }
     }
     Scaffold(
-        backgroundColor = BlackColor,
+        backgroundColor = ScaffoldBackGround,
         topBar = {
             TopAppBarBackWithLogo {
                 viewModel.clearPassword()
@@ -87,7 +87,7 @@ fun AddScreen(viewModel: AddViewModel, onBackPress: () -> Unit) {
             Column(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .fillMaxHeight(.8f).background(BlackColor),
+                    .fillMaxHeight(.8f),
                 verticalArrangement = Arrangement.SpaceAround,
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
@@ -149,9 +149,12 @@ fun InputView(viewModel: AddViewModel?, hintParam: String, onValueChanged: (inpu
         colors = TextFieldDefaults.textFieldColors(
             backgroundColor = TransparentColor,
             focusedIndicatorColor = WhiteColor,
-            unfocusedIndicatorColor = WhiteColor
+            unfocusedIndicatorColor = WhiteColor,
+            textColor = WhiteColor,
+            placeholderColor = WhiteColor,
+            cursorColor = WhiteColor
         ),
-        textStyle = LocalTextStyle.current.copy(textAlign = TextAlign.Center),
+        textStyle = LocalTextStyle.current.copy(textAlign = TextAlign.Start),
         modifier = Modifier
             .fillMaxWidth(.7f)
             .onFocusEvent {
@@ -223,9 +226,12 @@ fun PasswordInputView(
         colors = TextFieldDefaults.textFieldColors(
             backgroundColor = TransparentColor,
             focusedIndicatorColor = WhiteColor,
-            unfocusedIndicatorColor = WhiteColor
+            unfocusedIndicatorColor = WhiteColor,
+            textColor = WhiteColor,
+            placeholderColor = WhiteColor,
+            cursorColor = WhiteColor
         ),
-        textStyle = LocalTextStyle.current.copy(textAlign = TextAlign.Center),
+        textStyle = LocalTextStyle.current.copy(textAlign = TextAlign.Start),
         modifier = Modifier
             .fillMaxWidth(.7f)
             .onFocusEvent {

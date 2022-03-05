@@ -52,10 +52,10 @@ fun authScreen(
 
         }
     }
-    Scaffold(scaffoldState = scaffoldState) {
+    Scaffold(scaffoldState = scaffoldState, backgroundColor = ScaffoldBackGround) {
         Column(
             modifier = Modifier
-                .fillMaxSize().background(BlackColor),
+                .fillMaxSize(),
             verticalArrangement = Arrangement.SpaceAround,
             horizontalAlignment = Alignment.CenterHorizontally,
         ) {

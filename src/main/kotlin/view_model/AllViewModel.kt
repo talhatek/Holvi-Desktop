@@ -29,6 +29,7 @@ class AllViewModel : ScreenViewModel() {
                 data.sites.map {
                     it.password = it.password.decrypt(key.secretKey)
                     it.userName = it.userName.decrypt(key.secretKey)
+                    it.siteName = it.siteName.decrypt(key.secretKey)
                 }
                 _allSites.emit(AllSitesState.SuccessState(data.sites))
             }

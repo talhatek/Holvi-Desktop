@@ -42,6 +42,7 @@ fun allScreen(viewModel: AllViewModel, onBackPresses: () -> Unit) {
     val scaffoldState = rememberScaffoldState()
     val coroutineScope = rememberCoroutineScope()
     Scaffold(
+        backgroundColor = ScaffoldBackGround,
         topBar = {
             TopAppBarBackWithLogo {
                 onBackPresses.invoke()
@@ -92,7 +93,7 @@ fun PasswordItem(password: Site, position: Int) {
     var visible by remember { mutableStateOf(false) }
     Card(
         modifier = Modifier
-            .fillMaxWidth(.8f),
+            .fillMaxWidth(.6f),
         elevation = 12.dp,
         backgroundColor = if (position % 2 == 0) SecondaryColor else PrimaryColor
     ) {
@@ -113,9 +114,10 @@ fun PasswordItem(password: Site, position: Int) {
                 Row(
                     verticalAlignment = Alignment.CenterVertically,
                     horizontalArrangement = Arrangement.Center,
-                    modifier = Modifier.fillMaxWidth(.5f)
+                    modifier = Modifier.fillMaxWidth(.7f)
                 ) {
                     Text(
+                        modifier = Modifier.fillMaxWidth(.4f),
                         text = passwordText,
                         style = TextStyle(
                             fontSize = 14.sp,
@@ -125,7 +127,7 @@ fun PasswordItem(password: Site, position: Int) {
                         ),
                         color = WhiteColor
                     )
-                    Spacer(Modifier.weight(.1f))
+                    Spacer(Modifier.fillMaxWidth(.1f))
                     IconButton(
                         onClick = {
                             if (visible) {
@@ -139,9 +141,7 @@ fun PasswordItem(password: Site, position: Int) {
 
                         },
                         enabled = true,
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .then(Modifier.size(28.dp))
+                        modifier = Modifier.fillMaxWidth(.2f)
                     ) {
                         Icon(
                             painter = painterResource(resId),

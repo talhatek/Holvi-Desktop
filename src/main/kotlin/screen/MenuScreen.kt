@@ -36,7 +36,7 @@ fun menuScreen(menuItems: List<String>, navigate: (screen: NavHostComponent.Scre
         Column(
             modifier = Modifier
                 .fillMaxHeight()
-                .fillMaxWidth().background(BlackColor),
+                .fillMaxWidth().background(ScaffoldBackGround),
             horizontalAlignment = CenterHorizontally,
         ) {
             Spacer(modifier = Modifier.fillMaxHeight(0.05f))
