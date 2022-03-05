@@ -3,4 +3,7 @@ package model
 data class User(val value:String,val sites: List<Site>)
 
 @kotlinx.serialization.Serializable
-data class Site(val siteName:String,val userName:String,val password:String)
+data class Site(val siteName:String,var userName:String,var password:String)
+
+@kotlinx.serialization.Serializable
+data class Key(val secretKey:String)

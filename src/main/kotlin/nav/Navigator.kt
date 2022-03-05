@@ -1,6 +1,8 @@
 package nav
 
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.window.ApplicationScope
+import androidx.compose.ui.window.application
 import com.arkivanov.decompose.ComponentContext
 import com.arkivanov.decompose.extensions.compose.jetbrains.Children
 import com.arkivanov.decompose.router.pop
@@ -8,9 +10,14 @@ import com.arkivanov.decompose.router.push
 import com.arkivanov.decompose.router.replaceCurrent
 import com.arkivanov.decompose.router.router
 import com.arkivanov.essenty.parcelable.Parcelable
+import com.sun.tools.javac.Main
+import kotlinx.coroutines.MainScope
+import screen.AddScreenComponent
+import screen.AllScreenViewModelComponent
 import screen.AuthScreenViewModelComponent
 import screen.MenuScreenComponent
 import util.Component
+import java.awt.Window
 
 class NavHostComponent(
     componentContext: ComponentContext
@@ -37,16 +44,23 @@ class NavHostComponent(
                 componentContext,
                 ::push
             )
+            is ScreenConfig.All -> AllScreenViewModelComponent(
+                componentContext,
+                ::onBackPress
+            )
+            is ScreenConfig.Add -> AddScreenComponent(
+                componentContext,
+                ::onBackPress
+            )
             else -> {
                 //todo
                 AuthScreenViewModelComponent(
-                componentContext,
-                ::onAuthenticated,
+                    componentContext,
+                    ::onAuthenticated,
                 )
             }
         }
     }
-
 
     private fun onAuthenticated() {
         router.replaceCurrent(ScreenConfig.Menu)
@@ -56,8 +70,7 @@ class NavHostComponent(
         router.push(screen)
     }
 
-
-    private fun onBackPresses() {
+    private fun onBackPress() {
         router.pop()
     }
 

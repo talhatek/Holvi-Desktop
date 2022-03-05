@@ -15,6 +15,7 @@ import androidx.compose.ui.unit.dp
 import com.arkivanov.decompose.ComponentContext
 import nav.NavHostComponent
 import util.*
+import kotlin.system.exitProcess
 
 
 class MenuScreenComponent(
@@ -31,39 +32,42 @@ class MenuScreenComponent(
 @Composable
 @Preview
 fun menuScreen(menuItems: List<String>, navigate: (screen: NavHostComponent.ScreenConfig) -> Unit) {
-    Column(
-        modifier = Modifier
-            .fillMaxHeight()
-            .fillMaxWidth().background(BlackColor),
-        horizontalAlignment = CenterHorizontally,
-    ) {
-        Spacer(modifier = Modifier.fillMaxHeight(0.05f))
-        Text(
-            text = "What you wanna do?",
-            style = MaterialTheme.typography.h3,
-            color = WhiteColor
-        )
-        Spacer(modifier = Modifier.fillMaxHeight(0.05f))
-        BoxWithConstraints {
-            LazyColumn(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .fillMaxHeight(),
-                verticalArrangement = Arrangement.SpaceEvenly,
-                horizontalAlignment = CenterHorizontally,
-                contentPadding = PaddingValues(vertical = 16.dp)
+    Scaffold(topBar = { TopAppBarOnlyIcon("ic_power.png") { FileChooser.Default.keyFile.delete();exitProcess(0) } }) {
+        Column(
+            modifier = Modifier
+                .fillMaxHeight()
+                .fillMaxWidth().background(BlackColor),
+            horizontalAlignment = CenterHorizontally,
+        ) {
+            Spacer(modifier = Modifier.fillMaxHeight(0.05f))
+            Text(
+                text = "What you wanna do?",
+                style = MaterialTheme.typography.h3,
+                color = WhiteColor
+            )
+            Spacer(modifier = Modifier.fillMaxHeight(0.05f))
+            BoxWithConstraints {
+                LazyColumn(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .fillMaxHeight(),
+                    verticalArrangement = Arrangement.SpaceEvenly,
+                    horizontalAlignment = CenterHorizontally,
+                    contentPadding = PaddingValues(vertical = 16.dp)
 
-            ) {
-                items(menuItems) { menuItem ->
-                    menuItem(title = menuItem) { selectedTitle ->
-                        navigate.invoke(selectedTitle.convertToScreenConfig())
+                ) {
+                    items(menuItems) { menuItem ->
+                        menuItem(title = menuItem) { selectedTitle ->
+                            navigate.invoke(selectedTitle.convertToScreenConfig())
+                        }
                     }
+
+
                 }
-
-
             }
         }
     }
+
 }
 
 @Composable

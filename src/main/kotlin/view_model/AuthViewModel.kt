@@ -5,18 +5,16 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.ExperimentalComposeUiApi
 import com.charleskorn.kaml.Yaml
-import kotlinx.coroutines.*
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.asSharedFlow
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import kotlinx.serialization.encodeToString
+import model.Key
 import model.User
-import util.ScreenViewModel
-import util.decodeFromStream
-import util.decrypt
-import util.encrypt
-import java.io.File
+import util.*
 import java.io.FileWriter
-import java.nio.file.Path
 
 class AuthViewModel : ScreenViewModel() {
     var value by mutableStateOf("")
@@ -26,12 +24,13 @@ class AuthViewModel : ScreenViewModel() {
     @OptIn(ExperimentalComposeUiApi::class)
     fun auth() {
         launch(Dispatchers.IO) {
-            val file = File(Path.of("app\\resources").toAbsolutePath().toString() + "\\keep_safe.yaml")
-            if (file.isFile) {
-                val data = Yaml.default.decodeFromStream<User>(file.inputStream())
+            if (FileChooser.Default.keepSafeFile.isFile) {
+                val data = Yaml.default.decodeFromStream<User>(FileChooser.Default.keepSafeFile.inputStream())
                 try {
-                    if (data.value.decrypt(value).toInt() == value.toInt())
+                    if (data.value.decrypt(value).toInt() == value.toInt()){
                         _authState.emit(AuthState.SuccessState)
+                        saveKey()
+                    }
                     else
                         _authState.emit(AuthState.ErrorState)
                 } catch (ex: Exception) {
@@ -39,18 +38,27 @@ class AuthViewModel : ScreenViewModel() {
 
                 }
             } else {
-                val newFile = File(Path.of("").toAbsolutePath().toString() + "\\app\\resources").mkdirs()
-                if (newFile) {
+                if (FileChooser.Default.createdFile.mkdirs()) {
                     val data = Yaml.default.encodeToString(User(value = value.encrypt(value), sites = listOf()))
-                    val fileWriter = FileWriter(file)
+                    val fileWriter = FileWriter(FileChooser.Default.keepSafeFile)
                     fileWriter.write(data)
                     fileWriter.close()
                     _authState.emit(AuthState.SuccessState)
+                    saveKey()
                 } else
                     _authState.emit(AuthState.ErrorState)
 
             }
         }
+    }
+
+  private fun saveKey() {
+      launch(Dispatchers.IO) {
+           val fileKeyWriter= FileWriter(FileChooser.Default.keyFile)
+            fileKeyWriter.write(Yaml.default.encodeToString(Key(value)))
+            fileKeyWriter.close()
+        }.start()
+
     }
 }
 
